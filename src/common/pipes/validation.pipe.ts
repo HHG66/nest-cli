@@ -1,0 +1,31 @@
+/*
+ * @Author: HHG
+ * @Date: 2023-12-11 20:19:28
+ * @LastEditTime: 2023-12-11 20:19:32
+ * @LastEditors: 韩宏广
+ * @FilePath: \website\src\common\pipes\validation.pipe.ts
+ * @文件说明: 
+ */
+import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from '@nestjs/common';
+import { validate } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
+
+@Injectable()
+export class ValidationPipe implements PipeTransform<any> {
+  async transform(value: any, { metatype }: ArgumentMetadata) {
+    if (!metatype || !this.toValidate(metatype)) {
+      return value;
+    }
+    const object = plainToInstance(metatype, value);
+    const errors = await validate(object);
+    if (errors.length > 0) {
+      throw new BadRequestException('Validation failed');
+    }
+    return value;
+  }
+
+  private toValidate(metatype: Function): boolean {
+    const types: Function[] = [String, Boolean, Number, Array, Object];
+    return !types.includes(metatype);
+  }
+}
