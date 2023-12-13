@@ -11,9 +11,10 @@ import { IsString, IsInt, IsNotEmpty } from 'class-validator';
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
-  name:string
+  username:string
 
-  // id:number
-  
+  @IsNotEmpty()
+  @IsString()
+  password:string
 }
   

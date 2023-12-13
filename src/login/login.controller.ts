@@ -8,10 +8,12 @@ export class LoginController {
   //登录，用户管理做到单独的角色管理系统
   @Post('login')
   login(@Body() userInfo: CreateUserDto) {
+    return this.loginService.login(userInfo)
   }
 
+  //创建用户
   @Post('createuser')
-  createuser(@Body(new ValidationPipe()) userInfo: CreateUserDto) {
-    return this.loginService.login(userInfo);
+  createuser(@Body() userInfo: CreateUserDto) {
+    return this.loginService.createUser(userInfo);
   }
 }

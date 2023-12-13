@@ -7,5 +7,6 @@ import { CatSchema } from './schemas/user.schemas'
   imports: [MongooseModule.forFeature([{ name: 'User', schema: CatSchema }])],
   controllers: [LoginController],
   providers: [LoginService],
+  exports: [LoginService],
 })
 export class LoginModule { }
