@@ -1,15 +1,16 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseGuards } from '@nestjs/common';
 import { LoginService } from './login.service';
 import { CreateUserDto } from './dto/create-user';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from 'src/modules/auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Public } from 'src/common/decorators/isPublic.decorator';
+import { encryption, compare } from '@/utils/cryptogram';
 
 @Controller('admin')
 export class LoginController {
   constructor(private readonly loginService: LoginService,
     // private readonly AuthService: AuthService
-    ) { }
+  ) { }
   //登录，用户管理做到单独的角色管理系统
   @Public()
   @Post('login')
@@ -27,8 +28,7 @@ export class LoginController {
   //ceshi
   @Post('test')
   test() {
-    return '123'
-
+    let hashStr=encryption('hanhongguang',10)
   }
 
 }

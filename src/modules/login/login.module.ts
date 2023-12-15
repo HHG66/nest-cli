@@ -3,8 +3,8 @@ import { LoginService } from './login.service';
 import { LoginController } from './login.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CatSchema } from './schemas/user.schemas'
-import { AuthService } from 'src/auth/auth.service';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthService } from 'src/modules/auth/auth.service';
+import { AuthModule } from 'src/modules/auth/auth.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 @Module({
   imports: [

@@ -1,7 +1,8 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from 'src/login/dto/create-user';
-import { LoginService } from 'src/login/login.service';
+import { CreateUserDto } from 'src/modules/login/dto/create-user';
+import { LoginService } from 'src/modules/login/login.service';
+
 
 @Injectable()
 export class AuthService {
@@ -24,7 +25,7 @@ export class AuthService {
 
   // JWT验证 - Step 2: 校验用户信息
   async validateUser(username: string, password: string): Promise<any> {
-    console.log('JWT验证 - Step 2: 校验用户信息');
+    // console.log('JWT验证 - Step 2: 校验用户信息');
     const user = await this.loginServe.findOne(username);
     if (user) {
       const Password = user.password;
@@ -53,7 +54,7 @@ export class AuthService {
   // JWT验证 - Step 3: 处理得到 jwt 签证
   async certificate(user: CreateUserDto) {
     const payload = { username: user.username };
-    console.log('JWT验证 - Step 3: 处理 jwt 签证');
+    // console.log('JWT验证 - Step 3: 处理 jwt 签证');
     try {
       const token = this.jwtService.sign(payload);
       return {

@@ -1,10 +1,10 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginModule } from 'src/login/login.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import { jwtConstants } from './constats';
+import { jwtConstants } from '../../constants/constants';
 import { JwtStrategy } from './jwt.strategy'
+import { LoginModule } from 'src/modules/login/login.module';
 @Module({
   imports: [
     forwardRef(() => LoginModule),

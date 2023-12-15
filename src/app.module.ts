@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { LoginModule } from './login/login.module';
+import { LoginModule } from './modules/login/login.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from './common/guards/jwtAuth.guards';
-import { LoginService } from './login/login.service';
-import { AuthService } from './auth/auth.service';
+import { LoginService } from './modules/login/login.service';
+import { AuthService } from './modules/auth/auth.service';
 
 
 @Module({

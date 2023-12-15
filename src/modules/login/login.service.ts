@@ -3,7 +3,8 @@ import { UserDocument } from './schemas/user.schemas'
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from 'src/modules/auth/auth.service';
+import { encryption } from '@/utils/cryptogram'
 @Injectable()
 export class LoginService {
   constructor(
@@ -12,12 +13,14 @@ export class LoginService {
     @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
   ) { }
-  //简易的创建用户
+  //创建用户
   async createUser(createUser: CreateUserDto) {
+
     let userInfo = {
       ...createUser,
       createDate: new Date(),
-      updataDate: new Date()
+      updataDate: new Date(),
+      password: encryption(createUser.password)
     }
     const createUsers = new this.userModel(userInfo);
     const resule = await createUsers.save();
@@ -30,7 +33,7 @@ export class LoginService {
   //登录
   async login(userInfo: CreateUserDto) {
     // return this.loginService.login(userInfo)
-    console.log('JWT验证 - Step 1: 用户请求登录');
+    // console.log('JWT验证 - Step 1: 用户请求登录');
     const authResult = await this.authService.validateUser(userInfo.username, userInfo.password);
     switch (authResult.code) {
       case 1:
