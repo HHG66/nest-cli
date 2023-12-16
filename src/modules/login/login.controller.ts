@@ -1,15 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseGuards, BadRequestException } from '@nestjs/common';
-import { LoginService } from './login.service';
+import { Controller,Post, Body, Logger, BadRequestException, ForbiddenException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user';
-import { AuthService } from 'src/modules/auth/auth.service';
-import { AuthGuard } from '@nestjs/passport';
+import { LoginService } from './login.service';
 import { Public } from 'src/common/decorators/isPublic.decorator';
-import { encryption, compare } from '@/utils/cryptogram';
 
 @Controller('admin')
 export class LoginController {
   constructor(private readonly loginService: LoginService,
-    // private readonly AuthService: AuthService
   ) { }
   //登录，用户管理做到单独的角色管理系统
   @Public()
@@ -20,7 +16,6 @@ export class LoginController {
 
   //创建用户
   @Post('createuser')
-  // @UseGuards(AuthGuard('jwt'))
   createuser(@Body() userInfo: CreateUserDto) {
     return this.loginService.createUser(userInfo);
   }
@@ -29,9 +24,9 @@ export class LoginController {
   @Post('test')
   test() {
     // throw new BadRequestException('Something bad happened', { cause: new Error(), description: 'Some error description' })
+
     return {
       code:1,
-      // message:'1',
       test: [
         {
           name: 1,

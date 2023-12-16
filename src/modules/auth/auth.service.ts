@@ -1,3 +1,4 @@
+import { compare } from '@/utils/cryptogram';
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/modules/login/dto/create-user';
@@ -30,7 +31,7 @@ export class AuthService {
     if (user) {
       const Password = user.password;
       //明文密码
-      if (Password === password) {
+      if (compare(password, user.password)) {
         // 密码正确
         return {
           code: 1,

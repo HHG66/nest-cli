@@ -1,14 +1,18 @@
 /*
  * @Author: HHG
  * @Date: 2023-12-15 11:20:15
- * @LastEditTime: 2023-12-16 10:52:44
+ * @LastEditTime: 2023-12-16 15:57:56
  * @LastEditors: 韩宏广
  * @FilePath: \website\src\common\interceptors\response.interceptor.ts
  * @文件说明: 
  */
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
+import { getReqMainInfo } from '@/utils/getReqMainInfo';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Inject } from '@nestjs/common';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Logger } from 'winston'
+import { Request } from 'express';
 
 export interface Response<T> {
   data: T;
@@ -16,13 +20,21 @@ export interface Response<T> {
 
 @Injectable()
 export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
-  // intercept(context: ExecutionContext, next: CallHandler): Observable<Response<T>> {
-  intercept(context: ExecutionContext, next: CallHandler): any {
+  constructor(
+    @Inject(WINSTON_MODULE_PROVIDER) private logger: Logger
+  ) { }
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     // console.log('service执行前');
     // const response = context.switchToHttp().getResponse()
     // console.log(response);
+    const req = context.switchToHttp().getRequest<Request>();
+
     return next.handle().pipe(map(data => {
-      let resMessage = data.message||'请求成功'
+      this.logger.info('response', {
+        responseData: data,
+        req: getReqMainInfo(req as Request),
+      });
+      let resMessage = data.message || '请求成功'
       let resCode = data.code
       delete data.message
       if (data.code && data.code !== 0) {
@@ -38,6 +50,7 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
         message: resMessage,
         data: data
       }
+
     }));
   }
 }
