@@ -13,7 +13,7 @@ export class AuthService {
 
     @Inject(forwardRef(() => LoginService))
     private readonly loginServe: LoginService,
-  ) {}
+  ) { }
   // async validateUser(username: string, password: string) {
   //   const user = await this.loginServe.findOne(username);
   //   if (user && user.password === password) {
@@ -58,10 +58,8 @@ export class AuthService {
     try {
       const token = this.jwtService.sign(payload);
       return {
-        code: '00000',
-        data: {
-          token,
-        },
+        // code: '00000',
+        token,
         message: `登录成功`,
       };
     } catch (error) {

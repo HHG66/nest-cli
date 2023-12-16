@@ -15,16 +15,31 @@ export class LoginService {
   ) { }
   //创建用户
   async createUser(createUser: CreateUserDto) {
-
     let userInfo = {
       ...createUser,
       createDate: new Date(),
       updataDate: new Date(),
       password: encryption(createUser.password)
     }
+    //查找用户
+    const existUser = await this.userModel.findOne({ username: createUser.username });
+    if (existUser) {
+      return {
+        code: 1,
+        message: '已存在注册的用户'
+      }
+    }
+    //插入用户
     const createUsers = new this.userModel(userInfo);
     const resule = await createUsers.save();
-    return resule;
+    return resule ?
+      {
+        message: "创建成功",
+        username: resule.username
+      } : {
+        message: "创建失败"
+      }
+
   }
   //查找用户
   async findOne(username: string): Promise<CreateUserDto | undefined> {
@@ -49,8 +64,6 @@ export class LoginService {
           message: `查无此人`,
         };
     }
-
-
   }
 
 }

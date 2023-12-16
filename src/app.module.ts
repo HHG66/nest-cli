@@ -3,10 +3,7 @@ import { LoginModule } from './modules/login/login.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './modules/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from '@nestjs/passport';
-import { JwtAuthGuard } from './common/guards/jwtAuth.guards';
-import { LoginService } from './modules/login/login.service';
-import { AuthService } from './modules/auth/auth.service';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guards';
 
 
 @Module({

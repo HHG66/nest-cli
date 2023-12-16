@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseGuards, BadRequestException } from '@nestjs/common';
 import { LoginService } from './login.service';
 import { CreateUserDto } from './dto/create-user';
 import { AuthService } from 'src/modules/auth/auth.service';
@@ -28,7 +28,21 @@ export class LoginController {
   //ceshi
   @Post('test')
   test() {
-    let hashStr=encryption('hanhongguang',10)
+    // throw new BadRequestException('Something bad happened', { cause: new Error(), description: 'Some error description' })
+    return {
+      code:1,
+      // message:'1',
+      test: [
+        {
+          name: 1,
+          id: 1
+        }, {
+          name: 12,
+          id: 1
+        }
+      ],
+      iu: 'hahh'
+    }
   }
 
 }
