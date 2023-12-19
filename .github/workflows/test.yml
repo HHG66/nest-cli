@@ -21,7 +21,7 @@ jobs:
 
       # 打包
       - name: build project
-        run: npm run start
+        run: npm run build
 
       # 登录阿里云镜像容器服务，打包镜像，推送镜像
       - name: Build the Docker image
