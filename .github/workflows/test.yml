@@ -41,4 +41,4 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
 
       - name: run script on server
-        run:  D:&&cd /website-serve && cd website-serve && sh website-serve.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+        run: echo %cd% && &&cd /website-serve && cd website-serve && sh website-serve.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
