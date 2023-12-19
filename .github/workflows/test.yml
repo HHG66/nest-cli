@@ -39,5 +39,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
+           # 使用 Git Bash 在 Windows 上运行脚本
           script: "D:/App/Git/bash.exe" -c "./website-serve.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}"
       
