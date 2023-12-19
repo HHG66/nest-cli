@@ -23,16 +23,7 @@ jobs:
       - name: build project
         run: npm run build
 
-      # 登录阿里云镜像容器服务，打包镜像，推送镜像
-      - name: Build the Docker image
-        run: |
-          # 登录阿里云镜像容器服务
-          docker login --username=${{ secrets.DOCKER_USERNAME }} registry.cn-wulanchabu.aliyuncs.com --password=${{ secrets.DOCKER_PASSWORD }}
-          docker build -t website-serve:latest .
-          docker tag website-serve registry.cn-wulanchabu.aliyuncs.com/hhg-website/website-serve:latest
-          docker push registry.cn-wulanchabu.aliyuncs.com/hhg-website/website-serve:latest
-
-      # SSH 登录服务器执行脚本
+        # SSH 登录服务器执行脚本
       - name: ssh login
         uses: appleboy/ssh-action@master
         with:
@@ -40,5 +31,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           # 使用 Git Bash 在 Windows 上运行脚本
-          script: "/d/App/Git/bin/bash.exe" -c "cd /d/website-serve && pwd && ./website-serve.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}"
+          script: "/d/App/Git/bin/bash.exe -c 'cd /d/website-serve && pwd && ./website-serve.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}'"
       
