@@ -21,7 +21,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ResponseInterceptor(LoggerInstant));
   //全局异常过滤器
   app.useGlobalFilters(new HttpExceptionFilter(LoggerInstant));
-  await app.listen(3000);
+  await app.listen(3001);
 }
 
 bootstrap();
