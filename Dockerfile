@@ -1,5 +1,5 @@
 # 使用Node.js基础镜像  
-FROM node:latest  
+FROM node:18.17.1  
   
 # 设置工作目录  
 WORKDIR /app  
@@ -11,7 +11,7 @@ COPY . /app
 RUN pwd 
 RUN cd /app
 RUN ls
-
+RUN node 
 
 # 安装npm依赖  
 RUN npm install  
