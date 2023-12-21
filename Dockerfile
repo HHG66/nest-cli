@@ -11,7 +11,6 @@ COPY . /app
 RUN pwd 
 RUN cd /app
 RUN ls
-RUN ll
 
 
 # 安装npm依赖  
