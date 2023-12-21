@@ -7,6 +7,8 @@ WORKDIR /app
 # 将当前目录内容复制到容器的/app中  
 COPY . /app  
 
+# ces
+RUN pwd 
 
 # 安装npm依赖  
 RUN npm install  
