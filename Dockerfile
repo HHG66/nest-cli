@@ -9,6 +9,10 @@ COPY . /app
 
 # ces
 RUN pwd 
+RUN cd /app
+RUN ls
+RUN ll
+
 
 # 安装npm依赖  
 RUN npm install  
